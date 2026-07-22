@@ -1,4 +1,4 @@
-# Crayo Local — Make Viral Videos With AI (No Experience Needed)
+# Crayola Clip — Make Viral Videos With AI (No Experience Needed)
 
 This tool makes TikToks, Reels, and YouTube Shorts for you. You type what you want, it makes the video. That's it.
 
