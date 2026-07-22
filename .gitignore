@@ -1,0 +1,19 @@
+node_modules/
+dist/
+data/
+*.db
+.DS_Store
+.env
+
+# Demo assets — users add their own clips
+assets/stocks/*.mp4
+assets/stocks/*.mov
+assets/stocks/*.avi
+assets/styles/*.mp3
+assets/styles/*.wav
+assets/fonts/*
+assets/voices/*
+
+# Keep asset directories
+!assets/stocks/.gitkeep
+!assets/styles/.gitkeep
