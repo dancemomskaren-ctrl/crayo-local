@@ -1,198 +1,250 @@
-# Crayo Local
+# Crayo Local — Make Viral Videos With AI (No Experience Needed)
 
-AI-powered short-form video generator. Generate viral TikToks, Reels, and YouTube Shorts from text, Reddit posts, or YouTube URLs — fully local, no cloud required.
+This tool makes TikToks, Reels, and YouTube Shorts for you. You type what you want, it makes the video. That's it.
 
-## Quick Start
+**What it does:**
+
+- You give it a topic → it writes a script → it makes the video with voiceover, captions, and gameplay background
+- You give it a YouTube link → it finds the best moments → it makes clips automatically
+- You give it a Reddit post → it reads it out loud with a cool background
+
+**What you DON'T need:**
+
+- No video editing skills
+- No coding experience
+- No paid software
+- No cloud account
+
+---
+
+## Before You Start — Install These 3 Things
+
+You need to install 3 programs first. Don't worry, it's easy.
+
+### Step 1: Install Bun (the engine that runs this tool)
+
+Open **Terminal** (press `Cmd + Space`, type "Terminal", hit Enter).
+
+Copy and paste this line, then press Enter:
 
 ```bash
-git clone <your-repo-url> crayo-local
+curl -fsSL https://bun.sh/install | bash
+```
+
+Wait for it to finish. If it asks you to restart Terminal, close it and open it again.
+
+**Did it work?** Type `bun --version` and press Enter. If you see a number (like `1.3.14`), you're good.
+
+### Step 2: Install FFmpeg (the video making tool)
+
+Copy and paste this line into Terminal, then press Enter:
+
+```bash
+brew install ffmpeg
+```
+
+If you see "command not found", you need to install Homebrew first:
+
+```bash
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+```
+
+Then run `brew install ffmpeg` again.
+
+**Did it work?** Type `ffmpeg -version` and press Enter. If you see version info, you're good.
+
+### Step 3: Install Python packages (for AI features)
+
+Copy and paste this entire block into Terminal, then press Enter:
+
+```bash
+pip3 install edge-tts openai-whisper opencv-python rembg
+```
+
+**Did it work?** Type `pip3 show edge-tts` and press Enter. If you see package info, you're good.
+
+---
+
+## Install Crayo Local
+
+Now that you have Bun, FFmpeg, and Python packages installed:
+
+```bash
+# 1. Download the tool
+git clone https://github.com/dancemomskaren-ctrl/crayo-local.git
+
+# 2. Go into the folder
 cd crayo-local
-./setup.sh    # install dependencies (Bun, ffmpeg, Python packages)
-bun run dev   # start API on :3001, Web UI on :3000
+
+# 3. Install everything else it needs
+bun install
 ```
 
-Open **http://localhost:3000** in your browser.
+**Done.** That's the installation.
 
-## Features
+---
 
-### 15 Video Templates
+## How to Use It
 
-| Template      | Description                                                               |
-| ------------- | ------------------------------------------------------------------------- |
-| Reddit Story  | Scrape a Reddit post, TTS voiceover, gameplay background                  |
-| AI Story      | Paste a topic, AI generates a hook + script                               |
-| Fake Text     | iMessage-style conversation with animated bubbles                         |
-| Split Screen  | Two-panel layout with gameplay + captions                                 |
-| Quiz / Trivia | Multiple choice with countdown timer                                      |
-| Scary Story   | Horror narration with dark atmosphere                                     |
-| Life Advice   | Motivational quote over gameplay                                          |
-| POV Story     | First-person scenario videos                                              |
-| Auto Clip     | Paste a YouTube URL → auto-detect highlights → generate clips             |
-| Sermon Clip   | YouTube sermon → auto-detect highlights → captioned clips with hook intro |
-| Sermon Quote  | Single powerful quote with dramatic text reveal                           |
-| Testimony     | Personal testimony with emotional captions + dramatic music               |
-| Podcast Clip  | YouTube podcast → auto-detect highlights → captioned clips                |
-| Reaction      | React to a video — picture-in-picture commentary layout                   |
-| Top 5 / List  | Countdown list with dramatic reveals — "Top 5 reasons..."                 |
+### Start the tool
 
-### AI Script Writer
-
-Generate viral scripts from any topic. Enter a topic, choose a style (Church, Motivational, Storytelling, Educational, Entertainment, News), set target duration, and get a complete script with hook, body, call-to-action, and hashtags. One-click apply to any template.
-
-Requires DeepSeek API key — set `DEEPSEEK_API_KEY` in `.env` or environment.
-
-### Hook Scorer
-
-Rate your script hooks before rendering. Scores hooks 0-100 based on length, power words, curiosity triggers, specificity, urgency, and emotion. Get an S/A/B/C/D/F grade with actionable suggestions to improve retention.
-
-### Script Variations
-
-One topic → 5 unique script angles. Each variation uses a different approach (contrarian, personal story, expert authority, emotional appeal, shock value) with hook scores. Click "Use This" to instantly swap in a better-performing variation.
-
-### Analytics Dashboard
-
-Track total views, likes, comments, shares, and saves across all posted clips. See performance by platform (TikTok, Instagram Reels, YouTube Shorts). Data feeds back into future script generation.
-
-### Post Queue & One-Click Posting
-
-Queue renders for posting to TikTok, Instagram Reels, or YouTube Shorts. One-click post from the render complete screen. Posting queue shows status (queued/posting/posted/failed) with scheduled times.
-
-> **Note**: Direct platform posting requires API keys. Set `INSTAGRAM_ACCESS_TOKEN`, `TIKTOK_ACCESS_TOKEN`, or `YOUTUBE_API_KEY` in `.env`. Without keys, posts are queued with placeholder URLs for manual upload.
-
-### 10 Animated Subtitle Styles
-
-Bold Pop, Word by Word, Colorful, Minimal, Typewriter, Bounce, Zoom, Glow, Neon, Shake — all rendered as ASS (Advanced SubStation Alpha) for smooth, native animations.
-
-### Smart Zoom
-
-YuNet DNN face detection + FFmpeg dynamic crop for face-tracking zoom on any video.
-
-### Multi-Track Audio
-
-Mix up to 5 background music tracks + ambient SFX with per-track volume and fade controls.
-
-### Platform Formatting
-
-Auto-format for TikTok/Reels (9:16), Instagram (1:1), or YouTube (16:9).
-
-### Quality Presets
-
-| Preset   | Resolution | FPS | CRF |
-| -------- | ---------- | --- | --- |
-| Draft    | 720x1280   | 24  | 32  |
-| Standard | 1080x1920  | 30  | 26  |
-| High     | 1080x1920  | 60  | 20  |
-| Ultra    | 2160x3840  | 60  | 16  |
-
-### Scene Transitions
-
-Crossfade and zoom-cut transitions between clips.
-
-### Custom Caption Editor
-
-Edit auto-generated captions or write your own with precise timing control.
-
-### Batch Renderer
-
-Paste a YouTube URL → auto-detect N highlights → render all clips in one go with a live progress bar. Works with Sermon Clip and Podcast Clip templates.
-
-### Silence Removal
-
-Auto-detect and trim dead air from clips using ffmpeg's `silencedetect`. When enabled, silent pauses are removed and speaking segments are concatenated with smooth transitions. Configurable threshold (dB) and minimum silence duration.
-
-### Media Library
-
-Manage stock footage, background music, and fonts directly from the UI. Add your own clips to `assets/stocks/` and music to `assets/styles/` — the library works with any content type (sermons, podcasts, tutorials, gaming, etc.).
-
-## Architecture
-
-```
-crayo-local/
-├── packages/
-│   ├── core/     # FFmpeg wrapper, DB, templates, ASS subtitle generator
-│   ├── api/      # Hono REST API server
-│   ├── web/      # SolidJS + Tailwind web UI
-│   └── ai/       # TTS (Edge-TTS), STT (Whisper), face detection, bg removal
-├── assets/
-│   ├── stocks/   # Your video clips (sermons, podcasts, tutorials, gaming, etc.)
-│   ├── styles/   # Background music
-│   └── fonts/    # Custom fonts (optional)
-└── data/
-    ├── crayo.db  # SQLite database
-    └── renders/  # Generated videos
-```
-
-## Tech Stack
-
-- **Runtime**: Bun
-- **Backend**: Hono
-- **Frontend**: SolidJS + Tailwind CSS
-- **Database**: SQLite + Drizzle ORM
-- **Video**: FFmpeg
-- **TTS**: Edge-TTS (free Microsoft voices)
-- **STT**: Whisper (OpenAI)
-- **Face Detection**: OpenCV + YuNet DNN
-- **Background Removal**: rembg
-
-## API Endpoints
-
-| Method          | Path                        | Description                           |
-| --------------- | --------------------------- | ------------------------------------- |
-| GET             | `/api/health`               | Health check                          |
-| GET/POST/DELETE | `/api/projects`             | Project CRUD                          |
-| GET             | `/api/projects/:id/renders` | Get project renders                   |
-| POST            | `/api/renders`              | Start render                          |
-| GET             | `/api/renders/:id`          | Get render status                     |
-| DELETE          | `/api/renders/:id`          | Delete render                         |
-| GET             | `/api/voices`               | List TTS voices                       |
-| POST            | `/api/tts`                  | Generate TTS audio                    |
-| POST            | `/api/stt`                  | Transcribe audio                      |
-| POST            | `/api/generate-script`      | AI script generation (DeepSeek)       |
-| POST            | `/api/score-hook`           | Score a script hook (0-100)           |
-| POST            | `/api/generate-variations`  | Generate 5 script variations          |
-| POST            | `/api/auto-clip`            | YouTube URL → highlight clips         |
-| POST            | `/api/sermon-clip`          | Sermon URL → captioned clips          |
-| POST            | `/api/podcast-clip`         | Podcast URL → captioned clips         |
-| POST            | `/api/reaction`             | PiP reaction video compositing        |
-| POST            | `/api/top-list`             | Countdown list video generation       |
-| POST            | `/api/batch-clip`           | Batch clip processing (with progress) |
-| GET             | `/api/batch/:id/status`     | Get batch job progress                |
-| POST            | `/api/remove-silence`       | Detect & trim silence from video      |
-| POST            | `/api/remove-bg`            | Remove background from image          |
-| POST            | `/api/audio/remove-vocals`  | Separate vocals from music            |
-| POST            | `/api/audio/enhance`        | Enhance audio quality                 |
-| POST            | `/api/post-now`             | Queue clip for platform posting       |
-| GET             | `/api/analytics`            | Get all analytics data                |
-| POST            | `/api/analytics`            | Add analytics data for a clip         |
-| GET             | `/api/analytics/summary`    | Get analytics summary by platform     |
-| GET             | `/api/post-queue`           | Get post queue                        |
-| DELETE          | `/api/post-queue/:id`       | Remove from post queue                |
-| POST            | `/api/download`             | Download YouTube/TikTok video         |
-| POST            | `/api/reddit`               | Scrape Reddit post                    |
-| GET/DELETE      | `/api/stocks`               | List/delete stock clips               |
-| GET/DELETE      | `/api/music`                | List/delete background music          |
-
-## Commands
+Every time you want to use it, open Terminal and run:
 
 ```bash
-bun run dev          # start API + web dev servers
-bun run dev:api      # start API server only
-bun run dev:web      # start web dev server only
-bun run test         # run all tests
-bun run typecheck    # typecheck all packages
+cd crayo-local
+bun run dev
 ```
 
-## Requirements
+You'll see some text scrolling. That's normal. When it says "running on http://localhost:3000", it's ready.
 
-- [Bun](https://bun.sh) >= 1.0
-- FFmpeg (`brew install ffmpeg` on macOS)
-- Python 3.10+ with pip
-- OpenCV (`pip3 install opencv-python`)
-- Edge-TTS (`pip3 install edge-tts`)
-- Whisper (`pip3 install openai-whisper`)
+### Open the website
 
-Run `./setup.sh` to install everything automatically.
+Open your web browser (Chrome, Safari, whatever) and go to:
 
-## License
+```
+http://localhost:3000
+```
 
-MIT
+You'll see the Crayo interface. This is where you make videos.
+
+### Make your first video
+
+1. **Click "New Project"** (or whatever button starts a new project)
+2. **Pick a template** — for your first time, pick "AI Story"
+3. **Type a topic** — like "Why dogs are better than cats" or "Crazy facts about space"
+4. **Click "Generate Script"** — the AI writes a script for you
+5. **Click "Render"** — it makes the video
+
+Wait 30-60 seconds. Your video is now in the `data/renders/` folder.
+
+### Find your video
+
+Your finished video is saved here:
+
+```
+crayo-local/data/renders/
+```
+
+Just open that folder in Finder and you'll see your `.mp4` file. Drag it anywhere — social media, text messages, wherever.
+
+---
+
+## Other Cool Stuff You Can Do
+
+### Make a clip from a YouTube video
+
+1. Find a YouTube video you like
+2. Copy the URL (the link in the address bar)
+3. In Crayo, paste it where it says "YouTube URL"
+4. Click "Auto Clip"
+5. It finds the best moments and makes clips for you
+
+### Make a clip from a Twitch/Kick stream
+
+1. Copy the stream URL
+2. Paste it in the same YouTube URL box
+3. Same process — it downloads and clips automatically
+
+### Add your own gameplay footage
+
+Put any `.mp4` video files in this folder:
+
+```
+crayo-local/assets/stocks/
+```
+
+The tool will use them as backgrounds automatically.
+
+### Add your own music
+
+Put any `.mp3` files in this folder:
+
+```
+crayo-local/assets/styles/
+```
+
+It'll play in the background of your videos.
+
+---
+
+## Troubleshooting (When Things Go Wrong)
+
+### "Command not found: bun"
+
+You didn't install Bun, or Terminal didn't restart. Close Terminal completely and open it again. Then run `bun --version` to check.
+
+### "Command not found: ffmpeg"
+
+You didn't install FFmpeg. Run `brew install ffmpeg`.
+
+### "Python package not found"
+
+Run `pip3 install edge-tts openai-whisper opencv-python rembg` again.
+
+### Video is black / no captions
+
+The tool might still be processing. Check Terminal for error messages. If you see red text, something broke — copy the error and search it online.
+
+### Audio sounds weird / no audio
+
+Make sure you have background music in `assets/styles/`. Put any `.mp3` file there.
+
+### "Port 3000 already in use"
+
+Something else is using that port. Run this to stop it:
+
+```bash
+lsof -ti:3000 | xargs kill
+```
+
+Then try `bun run dev` again.
+
+---
+
+## FAQ
+
+**Do I need to know how to code?**
+No. You just need to know how to open Terminal and paste commands.
+
+**Does it cost money?**
+No. Everything runs on your computer. No cloud, no subscriptions.
+
+**Can I use it on Windows?**
+Not yet. It's built for Mac. (Linux might work but hasn't been tested.)
+
+**Can I use it without internet?**
+Mostly yes. The AI script writer needs internet (it uses DeepSeek API). Everything else works offline.
+
+**Where are my videos saved?**
+In `crayo-local/data/renders/`. They're regular `.mp4` files you can share anywhere.
+
+**Can I edit the captions?**
+Yes. In the web interface, there's a caption editor where you can change the text and timing.
+
+**How do I make it stop?**
+Press `Ctrl + C` in Terminal. That kills the server.
+
+---
+
+## Quick Reference
+
+| What you want        | What to type in Terminal                         |
+| -------------------- | ------------------------------------------------ |
+| Start the tool       | `cd crayo-local && bun run dev`                  |
+| Stop the tool        | `Ctrl + C`                                       |
+| Find your videos     | Open `crayo-local/data/renders/` in Finder       |
+| Add background clips | Put `.mp4` files in `crayo-local/assets/stocks/` |
+| Add background music | Put `.mp3` files in `crayo-local/assets/styles/` |
+| Update the tool      | `git pull && bun install`                        |
+
+---
+
+## Need Help?
+
+If something doesn't work:
+
+1. Read the Troubleshooting section above
+2. Search the error message online
+3. Ask someone who knows computers to help
+
+That's it. Go make some viral videos.
