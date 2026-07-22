@@ -791,7 +791,7 @@ app.post("/api/sermon-clip", async (c) => {
         if (voiceVol > 0 || hasMusic) {
           const mixedAudioPath = join(
             OUTPUT_DIR,
-            `${renderId}-mixed-audio.mp3`,
+            `${renderId}-mixed-audio.m4a`,
           );
           tempFiles.push(mixedAudioPath);
           const mixedPath = join(OUTPUT_DIR, `${renderId}-mixed.mp4`);
@@ -1140,7 +1140,7 @@ app.post("/api/podcast-clip", async (c) => {
         if (voiceVol > 0 || hasMusic) {
           const mixedAudioPath = join(
             OUTPUT_DIR,
-            `${renderId}-mixed-audio.mp3`,
+            `${renderId}-mixed-audio.m4a`,
           );
           tempFiles.push(mixedAudioPath);
           const mixedPath = join(OUTPUT_DIR, `${renderId}-mixed.mp4`);
@@ -1608,7 +1608,7 @@ app.post("/api/top-list", async (c) => {
 
     // Mix audio
     if (narrationPath || (body.bgMusic !== false && listBgMusic().length > 0)) {
-      const mixedAudioPath = join(OUTPUT_DIR, `${renderId}-mixed-audio.mp3`);
+      const mixedAudioPath = join(OUTPUT_DIR, `${renderId}-mixed-audio.m4a`);
       tempFiles.push(mixedAudioPath);
       const mixedPath = join(OUTPUT_DIR, `${renderId}-mixed.mp4`);
       tempFiles.push(mixedPath);
@@ -1963,7 +1963,7 @@ async function processBatch(batchId: string, body: any) {
       const hasMusic =
         body.bgMusic !== false && listBgMusic().length > 0 && musicVol > 0;
       if (voiceVol > 0 || hasMusic) {
-        const mixedAudioPath = join(OUTPUT_DIR, `${renderId}-mixed-audio.mp3`);
+        const mixedAudioPath = join(OUTPUT_DIR, `${renderId}-mixed-audio.m4a`);
         tempFiles.push(mixedAudioPath);
         const mixedPath = join(OUTPUT_DIR, `${renderId}-mixed.mp4`);
         tempFiles.push(mixedPath);
@@ -2378,7 +2378,7 @@ async function renderVideo(renderId: string, proj: any, settings: any) {
         (settings.bgMusic !== false && listBgMusic().length > 0) ||
         (settings.sfx && settings.sfx.length > 0);
       if (hasAudio) {
-        const mixedAudioPath = join(OUTPUT_DIR, `${renderId}-mixed-audio.mp3`);
+        const mixedAudioPath = join(OUTPUT_DIR, `${renderId}-mixed-audio.m4a`);
         tempFiles.push(mixedAudioPath);
         const mixedPath = join(OUTPUT_DIR, `${renderId}-mixed.mp4`);
         tempFiles.push(mixedPath);
